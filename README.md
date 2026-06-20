@@ -1,141 +1,462 @@
-🎓 Student Management API using FastAPI
+# 💼 Interview Application Tracker
 
-A simple CRUD (Create, Read, Update, Delete) REST API built with FastAPI and Pydantic for managing student records.
+A Full-Stack Job Application Tracking System built using FastAPI, Streamlit, PostgreSQL, and SQLAlchemy.
 
-🚀 Features
+This project helps users track job applications, monitor application status, manage interview progress, and store application details in a PostgreSQL database.
 
-* View all students
-* Get student details by ID
-* Get unique course names
-* Get unique student names
-* Get unique student locations
-* Add new students
-* Update existing student records
-* Delete students by ID
-* Delete students by Name
-* Delete students by Course
+---
 
-🛠️ Tech Stack
+# 📌 Project Overview
 
-* Python 3.12+
-* FastAPI
-* Pydantic
-* Uvicorn
+Applying to multiple companies can become difficult to manage.
 
-📂 Project Structure
+This application allows users to:
 
-student-management-api/
+- Add job applications
+- View all applications
+- Update application details
+- Delete applications
+- Track application status
+- Store data permanently in PostgreSQL
+- Visualize applications through Streamlit
+
+---
+
+# 🎯 Problem Statement
+
+When applying to multiple companies, candidates often lose track of:
+
+- Which companies they applied to
+- Current application status
+- Interview schedules
+- Application links
+- Notes and feedback
+
+This project solves that problem by providing a centralized dashboard for managing job applications.
+
+---
+
+# 🛠️ Tech Stack
+
+## Backend
+
+- FastAPI
+- Pydantic
+- SQLAlchemy
+- Uvicorn
+
+## Frontend
+
+- Streamlit
+
+## Database
+
+- PostgreSQL
+- pgAdmin
+
+## Other Tools
+
+- Git
+- GitHub
+- Swagger UI
+
+---
+
+# 🏗️ System Architecture
+
+```text
+Streamlit Frontend
+        │
+        ▼
+FastAPI Backend
+        │
+        ▼
+SQLAlchemy ORM
+        │
+        ▼
+PostgreSQL Database
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+Interview-Application-Tracker/
+
 │
-├── main.py
+├── app.py
+├── main1.py
+├── database.py
+├── models.py
+├── schemas.py
+├── create_tables.py
 ├── requirements.txt
-└── README.md
+├── README.md
+└── .gitignore
+```
 
-📦 Installation
+---
 
-1. Clone the Repository
+# 📊 Database Design
 
-git clone https://github.com/raviguna901/FastAPI-Learning.git
-cd student-management-api
+Database Name:
 
-2. Create Virtual Environment
+```text
+Fastapi
+```
 
-python -m venv venv
+Table Name:
 
-3. Activate Virtual Environment
+```text
+applications
+```
 
-Windows
+Columns:
 
-venv\Scripts\activate
+| Column | Data Type |
+|----------|----------|
+| id | Integer |
+| company | String |
+| role | String |
+| location | String |
+| status | String |
+| salary | String |
+| application_date | Date |
+| job_link | String |
+| notes | String |
 
-macOS/Linux
+---
 
-source venv/bin/activate
+# 🚀 Features
 
-4. Install Dependencies
+## Create Application
 
-pip install fastapi uvicorn
+Users can create a new job application.
 
-▶️ Run the Application
+Example:
 
-uvicorn main:app --reload
-
-Server will start at:
-
-http://127.0.0.1:8000
-
-📖 API Documentation
-
-Swagger UI:
-
-http://127.0.0.1:8000/docs
-
-ReDoc:
-
-http://127.0.0.1:8000/redoc
-
-📌 Available Endpoints
-
-Home
-
-Method	Endpoint	Description
-GET	/	Welcome Message
-
-Students
-
-Method	Endpoint	Description
-GET	/stud	Get all students
-GET	/sid/{id}	Get student by ID
-POST	/students_data	Add student
-PUT	/students_data	Update student
-DELETE	/students_data/id/{id}	Delete student by ID
-DELETE	/students_data/name/{name}	Delete student by Name
-DELETE	/students_data/course/{course}	Delete students by Course
-
-Utility Endpoints
-
-Method	Endpoint	Description
-GET	/courses	Get all unique courses
-GET	/names	Get all unique names
-GET	/places	Get all unique places
-
-📄 Student Schema
-
+```json
 {
   "id": 1,
-  "name": "Ravi",
-  "place": "AP",
-  "course": "DS",
-  "marks": 98
+  "company": "Google",
+  "role": "Data Analyst",
+  "location": "Hyderabad",
+  "status": "Applied",
+  "salary": "8 LPA",
+  "application_date": "2026-06-20",
+  "job_link": "https://careers.google.com",
+  "notes": "Applied through referral"
 }
+```
 
-🧪 Example Request
+---
 
-Add Student
+## Read Applications
 
-POST /students_data
+Users can view:
 
-{
-  "id": 5,
-  "name": "Kiran",
-  "place": "HYD",
-  "course": "DA",
-  "marks": 85
-}
+- All applications
+- Individual application details
 
-🎯 Future Improvements
+---
 
-* PostgreSQL Integration
-* SQLAlchemy ORM
-* Authentication & Authorization
-* Pagination
-* Search & Filtering
-* Docker Support
-* Unit Testing
+## Update Application
 
-👨‍💻 Author
+Users can update:
 
-Ravi Guna
+- Company
+- Role
+- Location
+- Status
+- Salary
+- Notes
+
+Example:
+
+```text
+Applied
+↓
+Interview Round 1
+↓
+HR Round
+↓
+Selected
+```
+
+---
+
+## Delete Application
+
+Users can remove unwanted application records.
+
+---
+
+## Application Status Tracking
+
+Supported statuses:
+
+```text
+Applied
+Shortlisted
+Assessment
+Interview Round 1
+Interview Round 2
+HR Round
+Selected
+Rejected
+```
+
+---
+
+# 🔌 FastAPI API Endpoints
+
+## Home
+
+```http
+GET /
+```
+
+---
+
+## Create Application
+
+```http
+POST /applications
+```
+
+---
+
+## Get All Applications
+
+```http
+GET /applications
+```
+
+---
+
+## Get Single Application
+
+```http
+GET /applications/{application_id}
+```
+
+---
+
+## Update Application
+
+```http
+PUT /applications/{application_id}
+```
+
+---
+
+## Delete Application
+
+```http
+DELETE /applications/{application_id}
+```
+
+---
+
+# 🗄️ PostgreSQL Setup
+
+## Install PostgreSQL
+
+Verify installation:
+
+```bash
+psql --version
+```
+
+---
+
+## Start PostgreSQL
+
+```bash
+brew services start postgresql@17
+```
+
+---
+
+## Connect to PostgreSQL
+
+```bash
+psql -d postgres
+```
+
+---
+
+## Create Database
+
+```sql
+CREATE DATABASE Fastapi;
+```
+
+---
+
+# ⚙️ SQLAlchemy Configuration
+
+database.py
+
+```python
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+DATABASE_URL = "postgresql://username:password@localhost:5432/Fastapi"
+
+engine = create_engine(DATABASE_URL)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+```
+
+---
+
+# 🧩 Database Model
+
+models.py
+
+```python
+class Application(Base):
+    __tablename__ = "applications"
+
+    id = Column(Integer, primary_key=True)
+    company = Column(String)
+    role = Column(String)
+    location = Column(String)
+    status = Column(String)
+    salary = Column(String)
+    application_date = Column(Date)
+    job_link = Column(String)
+    notes = Column(String)
+```
+
+---
+
+# 📋 Create Tables
+
+Run:
+
+```bash
+python create_tables.py
+```
+
+This creates the applications table automatically.
+
+---
+
+# ▶️ Running the Backend
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start FastAPI:
+
+```bash
+uvicorn main1:app --reload
+```
+
+API runs at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger Documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 🎨 Running Streamlit
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+Streamlit runs at:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# 📈 Future Improvements
+
+- User Authentication
+- Interview Review Module
+- Resume Upload Feature
+- Email Notifications
+- PostgreSQL Cloud Deployment
+- Docker Containerization
+- Analytics Dashboard
+- Search and Filtering
+- Multi-User Support
+
+---
+
+# 🧪 Testing
+
+CRUD operations tested using:
+
+- Swagger UI
+- PostgreSQL Queries
+- Streamlit Frontend
+
+Verified:
+
+✅ Create
+
+✅ Read
+
+✅ Update
+
+✅ Delete
+
+---
+
+# 💡 Learning Outcomes
+
+Through this project, I learned:
+
+- FastAPI Development
+- REST API Design
+- CRUD Operations
+- PostgreSQL Database Management
+- SQLAlchemy ORM
+- Streamlit Frontend Development
+- API Testing using Swagger
+- Git & GitHub Version Control
+
+---
+
+# 👨‍💻 Author
+
+Ravi Kiran Gandupalli
 
 B.Tech CSE (Data Science)
 
-FastAPI | Python | Data Science Enthusiast
+Python | FastAPI | Data Science | Machine Learning
+
+GitHub:
+https://github.com/raviguna901
+
+---
+
+# ⭐ Conclusion
+
+This project demonstrates the integration of FastAPI, Streamlit, SQLAlchemy, and PostgreSQL to build a complete full-stack application for tracking job applications and interview progress.
+
+The system provides persistent storage, API-driven architecture, and an interactive user interface, making it suitable for learning modern backend and full-stack development concepts.
